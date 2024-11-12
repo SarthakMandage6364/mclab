@@ -1,0 +1,26 @@
+#include <p18f458.h>
+#define SW PORTDbits.RD7        // Define SW as the pin RD7
+#define ENABLE PORTBbits.RB0    // Define ENABLE as pin RB0
+#define MTR_1 PORTBbits.RB1     // Define MTR_1 as pin RB1
+#define MTR_2 PORTBbits.RB2     // Define MTR_2 as pin RB2
+
+void main() {
+    TRISD = 0x80;   // Make RD7 an input pin
+    TRISB = 0x00;   // Make PORTB output
+
+    SW = 1;
+    ENABLE = 0;
+    MTR_1 = 0;
+    MTR_2 = 0;
+
+    while (1) {
+        ENABLE = 1;
+        if (SW == 1) {
+            MTR_1 = 1;
+            MTR_2 = 0;
+        } else {
+            MTR_1 = 0;
+            MTR_2 = 1;
+        }
+    }
+}
